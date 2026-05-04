@@ -3,18 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bell Sekolah - MySQL</title>
+  <title>Bell Sekolah - SMK Labor Pekanbaru</title>
   <style>
     :root {
-      --bg: #0b1120; --card: #111b33; --card-alt: #162040;
-      --border: #1e2d52; --accent: #38bdf8; --accent-bright: #7dd3fc;
-      --text: #e2e8f0; --text-sec: #94a3b8; --text-muted: #64748b;
-      --danger: #ef4444; --success: #22c55e;
+      --bg: #0b1120; 
+      --card: #111b33; 
+      --card-alt: #162040;
+      --border: #1e2d52; 
+      --accent: #38bdf8; 
+      --accent-bright: #7dd3fc;
+      --text: #e2e8f0; 
+      --text-sec: #94a3b8; 
+      --text-muted: #64748b;
+      --danger: #ef4444; 
+      --success: #22c55e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 20px; min-height: 100vh; }
     .container { max-width: 900px; margin: 0 auto; }
     
+    /* Header */
     header { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
     .school-info { display: flex; align-items: center; gap: 12px; }
     .school-info img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; cursor: pointer; background: var(--card-alt); }
@@ -27,6 +35,7 @@
     .clock { font-size: 2rem; font-weight: 700; color: var(--accent-bright); letter-spacing: 1px; }
     .date { font-size: 0.8rem; color: var(--text-sec); }
     
+    /* Buttons */
     .btn { padding: 9px 18px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.2s; }
     .btn-primary { background: var(--accent); color: #0b1120; }
     .btn-primary:hover { background: var(--accent-bright); }
@@ -34,33 +43,37 @@
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-sec); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
     
+    /* Cards & Forms */
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 16px; }
     .card h3 { font-size: 0.85rem; color: var(--accent-bright); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-    
     .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
     input, select { background: var(--card-alt); border: 1px solid var(--border); color: var(--text); padding: 9px 12px; border-radius: 6px; width: 100%; font-size: 0.85rem; }
     input:focus, select:focus { outline: none; border-color: var(--accent); }
     
+    /* Tables & Lists */
     table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
     th { background: var(--card-alt); color: var(--text-sec); font-size: 0.75rem; text-transform: uppercase; }
-    
     .holiday-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; margin-top: 10px; }
     .holiday-item { background: var(--card-alt); padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; display: flex; justify-content: space-between; border-left: 3px solid var(--danger); }
-    
     .log-box { max-height: 150px; overflow-y: auto; }
     .log-box::-webkit-scrollbar { width: 4px; }
     .log-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
     
-    #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0b1120; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; opacity: 0; transition: 0.3s; pointer-events: none; }
+    /* Toast */
+    #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0b1120; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 1000; }
     #toast.show { opacity: 1; }
+
+    .audio-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .audio-chip { background: var(--card-alt); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; border: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+    .audio-chip button { background: transparent; border: none; color: var(--danger); cursor: pointer; font-size: 0.8rem; padding: 0; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div class="school-info">
-        <img id="logoImg" src="" alt="Logo" onclick="document.getElementById('logoInput').click()">
+        <img id="logoImg" src="image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMTExYjMzIi8+PHRleHQgeD0iNTAlIiB5PSI1NSUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMzOGJkZjgiIGZvbnQtd2VpZ2h0PSJib2xkIj5PPC90ZXh0Pjwvc3ZnPg==" alt="Logo" onclick="document.getElementById('logoInput').click()">
         <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="uploadLogo(this)">
         <div>
           <div class="school-name" id="schoolNameDisplay">SMK Labor Pekanbaru</div>
@@ -96,16 +109,15 @@
 
     <div class="card">
       <h3>Kelola Audio</h3>
-      <div class="form-row" style="grid-template-columns: 1fr 1fr auto;">
+      <div class="form-row" style="grid-template-columns: 1fr auto;">
         <input type="file" id="audioFile" accept="audio/*">
-        <input type="text" id="audioName" placeholder="Nama Audio (opsional)">
-        <button class="btn btn-outline" onclick="uploadAudio()">UPLOAD</button>
+        <button class="btn btn-outline" onclick="uploadAudio()">UPLOAD AUDIO</button>
       </div>
-      <div id="audioList" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;"></div>
+      <div id="audioList" class="audio-list"></div>
     </div>
 
     <div class="card">
-      <h3>Hari Libur Nasional (Auto-Skip)</h3>
+      <h3>Hari Libur (Auto-Skip)</h3>
       <p style="font-size:0.8rem; color:var(--text-sec); margin-bottom:8px;">Sistem otomatis melewatkan bell pada tanggal merah berikut:</p>
       <div class="holiday-grid" id="holidayList"></div>
     </div>
@@ -123,208 +135,242 @@
   <div id="toast">Berhasil</div>
 
   <script>
-    let schedules = [], holidays = [], settings = {is_enabled:0, time_offset:0, school_name:'', logo_url:''}, lastTriggered = {};
+    // === 1. KONFIGURASI & STATE ===
+    const HOLIDAYS_2026 = [
+      '2026-01-01', '2026-01-17', '2026-02-17', '2026-03-20', '2026-03-21',
+      '2026-05-01', '2026-05-02', '2026-05-18', '2026-05-27', '2026-06-01',
+      '2026-06-17', '2026-08-17', '2026-09-25', '2026-12-25'
+    ];
+    
+    let state = {
+      schoolName: 'SMK Labor Pekanbaru',
+      logoUrl: '',
+      is_enabled: false,
+      schedules: [],
+      logs: [],
+      lastTriggered: {}
+    };
 
-    async function api(action, data={}, method='POST') {
-      const form = new FormData();
-      form.append('action', action);
-      Object.entries(data).forEach(([k,v]) => form.append(k,v));
-      const res = await fetch('api.php', {method, body: method==='GET' ? null : form});
-      return res.json();
+    // Load state from LocalStorage
+    const saved = localStorage.getItem('bellState');
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+
+    // === 2. DATABASE AUDIO (INDEXEDDB) ===
+    const DB_NAME = 'BellAudioDB_v5';
+    let audioCache = {};
+    let dbReady = false;
+
+    function initAudioDB() {
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onupgradeneeded = e => { if(!e.target.result.objectStoreNames.contains('audio')) e.target.result.createObjectStore('audio', {keyPath:'name'}); };
+      req.onsuccess = e => {
+        const db = e.target.result;
+        const tx = db.transaction('audio', 'readonly');
+        const store = tx.objectStore('audio');
+        const all = store.getAll();
+        all.onsuccess = () => {
+          audioCache = {};
+          all.result.forEach(item => audioCache[item.name] = item.blob);
+          dbReady = true;
+          renderAudioDropdown();
+          renderAudioList();
+        };
+      };
     }
 
-    async function init() {
-      const s = await api('get_settings',{},'GET');
-      if(s.status==='success') settings = s.data;
+    // === 3. FUNGSI UTAMA ===
+    function saveState() { localStorage.setItem('bellState', JSON.stringify(state)); }
+
+    function updateUI() {
+      document.getElementById('schoolNameDisplay').textContent = state.schoolName;
+      document.getElementById('logoImg').src = state.logoUrl || 'image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMTExYjMzIi8+PHRleHQgeD0iNTAlIiB5PSI1NSUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMzOGJkZjgiIGZvbnQtd2VpZ2h0PSJib2xkIj5PPC90ZXh0Pjwvc3ZnPg==';
       
-      const h = await api('get_holidays',{},'GET');
-      if(h.status==='success') holidays = h.data;
-      
-      renderSettings();
-      renderHolidays();
-      await loadSchedules();
-      await loadLogs();
-      startClock();
-    }
-
-    function renderSettings() {
-      document.getElementById('schoolNameDisplay').textContent = settings.school_name || 'SMK Labor Pekanbaru';
-      document.getElementById('logoImg').src = settings.logo_url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMTExYjMzIi8+PHRleHQgeD0iNTAlIiB5PSI1NSUiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMzOGJkZjgiIGZvbnQtd2VpZ2h0PSJib2xkIj5PPC90ZXh0Pjwvc3ZnPg==';
-      updateStatusUI();
-    }
-
-    function updateStatusUI() {
       const btn = document.getElementById('toggleBtn');
       const badge = document.getElementById('statusBadge');
-      if(settings.is_enabled) {
+      if(state.is_enabled) {
         btn.textContent = 'JEDA SISTEM'; btn.classList.replace('btn-primary','btn-outline');
         badge.classList.remove('off'); badge.innerHTML = '<span class="status-dot"></span> Sistem Aktif';
       } else {
         btn.textContent = 'AKTIFKAN SISTEM'; btn.classList.replace('btn-outline','btn-primary');
         badge.classList.add('off'); badge.innerHTML = '<span class="status-dot"></span> Sistem Nonaktif';
       }
+      renderSchedules();
+      renderLogs();
+      renderHolidays();
     }
 
-    async function toggleSystem() {
-      settings.is_enabled = settings.is_enabled ? 0 : 1;
-      await api('update_settings', settings);
-      updateStatusUI();
-      showToast(settings.is_enabled ? 'Sistem Diaktifkan' : 'Sistem Dijeda');
+    function toggleSystem() {
+      state.is_enabled = !state.is_enabled;
+      saveState();
+      updateUI();
+      showToast(state.is_enabled ? 'Sistem Diaktifkan' : 'Sistem Dijeda');
     }
 
-    async function uploadLogo(input) {
-      if(!input.files[0]) return;
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        settings.logo_url = e.target.result;
-        await api('update_settings', settings);
-        renderSettings();
-        showToast('Logo Diperbarui');
-      };
-      reader.readAsDataURL(input.files[0]);
+    // === 4. JADWAL & AUDIO ===
+    function addSchedule() {
+      const time = document.getElementById('schedTime').value;
+      const label = document.getElementById('schedLabel').value;
+      const audio = document.getElementById('schedAudio').value;
+      const vol = document.getElementById('schedVol').value;
+      if(!time || !label || !audio) return alert('Lengkapi data!');
+      state.schedules.push({ id: Date.now(), time, label, audio, volume: vol, enabled: true });
+      saveState(); updateUI();
+      document.getElementById('schedTime').value = ''; document.getElementById('schedLabel').value = '';
+      showToast('Jadwal Ditambahkan');
+    }
+
+    function deleteSchedule(id) {
+      if(!confirm('Hapus jadwal?')) return;
+      state.schedules = state.schedules.filter(s => s.id !== id);
+      saveState(); updateUI();
+    }
+
+    function toggleSchedule(id) {
+      const s = state.schedules.find(x => x.id === id);
+      if(s) s.enabled = !s.enabled;
+      saveState(); updateUI();
     }
 
     async function uploadAudio() {
-      const file = document.getElementById('audioFile').files[0];
-      const name = document.getElementById('audioName').value.trim() || file?.name;
-      if(!file) return alert('Pilih file audio');
-      
-      const form = new FormData();
-      form.append('action','upload_audio');
-      form.append('audio', file);
-      form.append('name', name);
-      
-      const res = await fetch('api.php', {method:'POST', body:form});
-      const json = await res.json();
-      if(json.status==='success') {
-        showToast('Audio Berhasil Diupload');
-        document.getElementById('audioFile').value = '';
-        document.getElementById('audioName').value = '';
-        await loadSchedules(); // Refresh dropdown
-      } else alert(json.msg);
+      const input = document.getElementById('audioFile');
+      if(!input.files.length) return alert('Pilih file audio');
+      const file = input.files[0];
+      const name = prompt('Beri nama audio (tanpa spasi):', file.name);
+      if(!name) return;
+
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onsuccess = e => {
+        const db = e.target.result;
+        const tx = db.transaction('audio', 'readwrite');
+        tx.objectStore('audio').put({ name, blob: file });
+        tx.oncomplete = () => {
+          input.value = '';
+          showToast('Audio Tersimpan');
+          location.reload(); // Refresh biar cache update
+        };
+      };
     }
 
-    async function loadSchedules() {
-      const res = await api('get_schedules',{},'GET');
-      if(res.status==='success') {
-        schedules = res.data;
-        renderScheduleTable();
-        renderAudioDropdown();
-      }
+    function deleteAudio(name) {
+      if(!confirm('Hapus audio ini?')) return;
+      const req = indexedDB.open(DB_NAME, 1);
+      req.onsuccess = e => {
+        const db = e.target.result;
+        const tx = db.transaction('audio', 'readwrite');
+        tx.objectStore('audio').delete(name);
+        tx.oncomplete = () => {
+          showToast('Audio Dihapus');
+          location.reload();
+        };
+      };
     }
 
-    function renderScheduleTable() {
+    function renderAudioDropdown() {
+      const sel = document.getElementById('schedAudio');
+      sel.innerHTML = '<option value="">Pilih Audio</option>';
+      Object.keys(audioCache).forEach(name => {
+        sel.innerHTML += `<option value="${name}">${name}</option>`;
+      });
+    }
+
+    function renderAudioList() {
+      const list = document.getElementById('audioList');
+      list.innerHTML = '';
+      Object.keys(audioCache).forEach(name => {
+        list.innerHTML += `<div class="audio-chip">🔊 ${name} <button onclick="deleteAudio('${name}')">✕</button></div>`;
+      });
+    }
+
+    // === 5. RIWAYAT & LOGIKA JAM ===
+    function renderSchedules() {
       const tb = document.getElementById('schedList');
-      tb.innerHTML = schedules.map(s => `
-        <tr style="opacity:${s.is_enabled?1:0.5}">
-          <td>${s.time}</td><td>${s.label}</td><td>${s.audio_filename}</td><td>${s.volume}%</td>
-          <td>${s.is_enabled?'AKTIF':'NONAKTIF'}</td>
+      tb.innerHTML = state.schedules.map(s => `
+        <tr style="opacity:${s.enabled?1:0.5}">
+          <td>${s.time}</td><td>${s.label}</td><td>${s.audio}</td><td>${s.volume}%</td>
+          <td>${s.enabled?'AKTIF':'NONAKTIF'}</td>
           <td>
-            <button class="btn btn-outline" onclick="toggleSchedule(${s.id})">${s.is_enabled?'JEDA':'AKTIF'}</button>
-            <button class="btn btn-danger" onclick="deleteSchedule(${s.id})">HAPUS</button>
+            <button class="btn btn-outline" style="padding:4px 8px; font-size:0.7rem;" onclick="toggleSchedule(${s.id})">${s.enabled?'JEDA':'AKTIF'}</button>
+            <button class="btn btn-danger" style="padding:4px 8px; font-size:0.7rem;" onclick="deleteSchedule(${s.id})">HAPUS</button>
           </td>
         </tr>
       `).join('');
     }
 
-    function renderAudioDropdown() {
-      const sel = document.getElementById('schedAudio');
-      sel.innerHTML = '<option value="">Pilih Audio</option>' + 
-        schedules.map(s => `<option value="${s.audio_filename}">${s.audio_filename}</option>`).join('');
-      
-      const list = document.getElementById('audioList');
-      const unique = [...new Set(schedules.map(s=>s.audio_filename))];
-      list.innerHTML = unique.map(f => `<span style="background:var(--card-alt);padding:4px 10px;border-radius:4px;font-size:0.8rem;border:1px solid var(--border);">🔊 ${f}</span>`).join('');
-    }
-
-    async function addSchedule() {
-      const time = document.getElementById('schedTime').value;
-      const label = document.getElementById('schedLabel').value;
-      const audio = document.getElementById('schedAudio').value;
-      const vol = document.getElementById('schedVol').value;
-      if(!time || !label || !audio) return alert('Lengkapi data jadwal');
-      
-      await api('add_schedule', {time, label, audio_filename:audio, volume:vol});
-      document.getElementById('schedTime').value=''; document.getElementById('schedLabel').value='';
-      await loadSchedules();
-      showToast('Jadwal Ditambahkan');
-    }
-
-    async function toggleSchedule(id) {
-      await api('toggle_schedule', {id});
-      await loadSchedules();
-    }
-
-    async function deleteSchedule(id) {
-      if(!confirm('Hapus jadwal ini?')) return;
-      await api('delete_schedule', {id});
-      await loadSchedules();
+    function renderLogs() {
+      document.getElementById('logList').innerHTML = state.logs.map(l => `
+        <tr><td>${l.time}</td><td>${l.label}</td><td>${l.vol}%</td>
+        <td style="color:${l.status==='OK'?'var(--success)':'var(--danger)'}">${l.status}</td></tr>
+      `).join('');
     }
 
     function renderHolidays() {
-      document.getElementById('holidayList').innerHTML = holidays.map(d => {
+      document.getElementById('holidayList').innerHTML = HOLIDAYS_2026.map(d => {
         const dt = new Date(d+'T00:00:00');
-        return `<div class="holiday-item"><span>${dt.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})}</span><span style="color:var(--text-sec)">Libur</span></div>`;
+        return `<div class="holiday-item"><span>${dt.toLocaleDateString('id-ID')}</span></div>`;
       }).join('');
     }
 
-    async function loadLogs() {
-      const res = await api('get_logs',{},'GET');
-      if(res.status==='success') {
-        document.getElementById('logList').innerHTML = res.data.map(l => `
-          <tr><td>${l.triggered_at}</td><td>${l.schedule_label||'-'}</td><td>${l.volume}%</td>
-          <td style="color:${l.status==='OK'?'var(--success)':'var(--danger)'}">${l.status}</td></tr>
-        `).join('');
-      }
-    }
-
-    async function logBell(label, vol, status='OK') {
-      const now = new Date(Date.now() + settings.time_offset*60000).toISOString().slice(0,19).replace('T',' ');
-      await api('add_log', {triggered_at:now, label, volume:vol, status});
-      await loadLogs();
+    function playBell(audioName, vol) {
+      if(!audioCache[audioName]) return;
+      const audio = new Audio(URL.createObjectURL(audioCache[audioName]));
+      audio.volume = vol / 100;
+      audio.play().catch(e => console.warn('Browser memblokir audio. Klik "Aktifkan Sistem" dulu.'));
     }
 
     function startClock() {
       setInterval(() => {
-        const now = new Date(Date.now() + settings.time_offset*60000);
+        const now = new Date();
         document.getElementById('clock').textContent = now.toTimeString().slice(0,8);
         document.getElementById('date').textContent = now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-        
-        if(!settings.is_enabled) return;
-        
+
+        if(!state.is_enabled) return;
+
         const today = now.toISOString().slice(0,10);
-        if(holidays.includes(today)) return; // 🔑 AUTO SKIP HARI LIBUR
-        
+        // CEK HARI LIBUR OTOMATIS
+        if(HOLIDAYS_2026.includes(today)) return;
+
         const timeStr = now.toTimeString().slice(0,5);
-        const match = schedules.find(s => s.time===timeStr && s.is_enabled && !lastTriggered[s.id]?.startsWith(today));
-        
+        const match = state.schedules.find(s => s.time === timeStr && s.enabled && !state.lastTriggered[s.id]?.startsWith(today));
+
         if(match) {
-          const audio = new Audio('uploads/' + match.audio_filename);
-          audio.volume = match.volume / 100;
-          audio.play().catch(e=>console.warn('Audio blocked',e));
-          logBell(match.label, match.volume);
-          lastTriggered[match.id] = now.toISOString();
+          playBell(match.audio, match.volume);
+          state.logs.unshift({ time: now.toLocaleString(), label: match.label, vol: match.volume, status: 'OK' });
+          if(state.logs.length > 50) state.logs.pop();
+          state.lastTriggered[match.id] = now.toISOString();
+          saveState();
+          renderLogs();
         }
       }, 1000);
     }
 
+    // === 6. INITIALIZATION ===
+    function uploadLogo(input) {
+      if(!input.files[0]) return;
+      const r = new FileReader();
+      r.onload = e => { state.logoUrl = e.target.result; saveState(); updateUI(); };
+      r.readAsDataURL(input.files[0]);
+    }
+
     function triggerEmergency() {
-      const pin = prompt('Masukkan PIN Admin:');
-      if(pin==='1234') {
-        const audio = new Audio(schedules.length ? 'uploads/'+schedules[0].audio_filename : '');
-        audio.volume = 1; audio.play();
-        logBell('BELL DARURAT', 100, 'EMERGENCY');
-        showToast('Bell Darurat Dibunyikan');
+      const pin = prompt('PIN Admin (1234):');
+      if(pin === '1234' && Object.keys(audioCache).length > 0) {
+        playBell(Object.keys(audioCache)[0], 100);
+        state.logs.unshift({ time: new Date().toLocaleString(), label: 'DARURAT', vol: 100, status: 'EMERGENCY' });
+        saveState(); renderLogs();
+        showToast('Bell Darurat Bunyi');
       } else if(pin) alert('PIN Salah');
     }
 
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg; t.classList.add('show');
-      setTimeout(()=>t.classList.remove('show'), 2000);
+      setTimeout(() => t.classList.remove('show'), 2000);
     }
 
-    init();
+    // Start App
+    updateUI();
+    startClock();
+    initAudioDB();
   </script>
 </body>
 </html>
